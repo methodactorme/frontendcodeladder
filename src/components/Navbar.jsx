@@ -6,7 +6,7 @@ const Navbar = ({ user, setUser }) => {
 
   const handleLogout = () => {
     localStorage.clear();
-    setUser('Guest');
+    setUser('');
     navigate('/login');
   };
 
@@ -59,7 +59,7 @@ const Navbar = ({ user, setUser }) => {
 
         {/* Logout */}
         <div className="flex justify-center">
-          {user && user !== 'Guest' && (
+          {user && user !== '' && (
             <button
               onClick={handleLogout}
               className="px-4 py-2 bg-gradient-to-r from-red-600 to-red-800 text-white rounded-lg font-bold shadow-lg hover:from-red-700 hover:to-red-900 transition transform hover:scale-105"
