@@ -24,31 +24,7 @@ export const Home = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-2xl shadow-lg p-8 transform hover:scale-105 transition-transform duration-300">
-            <h2 className="text-2xl font-bold text-blue-800 mb-4">Practice Problems</h2>
-            <p className="text-gray-600 mb-4">
-              Access a curated collection of coding problems to enhance your skills
-            </p>
-            <img
-              src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg"
-              alt="Coding practice"
-              className="w-full h-48 object-cover rounded-lg mb-4"
-            />
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-8 transform hover:scale-105 transition-transform duration-300">
-            <h2 className="text-2xl font-bold text-blue-800 mb-4">Track Progress</h2>
-            <p className="text-gray-600 mb-4">
-              Monitor your progress and see how far you've come
-            </p>
-            <img
-              src="https://images.pexels.com/photos/7376/startup-photos.jpg"
-              alt="Progress tracking"
-              className="w-full h-48 object-cover rounded-lg mb-4"
-            />
-          </div>
-        </div>
+        
 
         </div>
     </div>
