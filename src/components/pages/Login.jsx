@@ -56,7 +56,7 @@ const AuthForm = ({ setUser, mode = "login" }) => {
         localStorage.setItem('token', response.data.token);
         setSuccess('Login successful!');
         setFormData({ username: '', password: '', email: '', phone: '' });
-        setTimeout(() => navigate('/home'), 700);
+        setTimeout(() => navigate('/'), 700);
       } catch (error) {
         if (error.response) {
           setMessage(error.response.data.error || 'Login failed');
