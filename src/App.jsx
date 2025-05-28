@@ -13,7 +13,7 @@ import LadderPage from './components/pages/LadderPage';
 import Admin from './components/pages/Admin';
 
 const App = () => {
-  const [user, setUser] = useState("login");
+  const [user, setUser] = useState("");
 
  
   useEffect(() => {
