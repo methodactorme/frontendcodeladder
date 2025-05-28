@@ -8,8 +8,19 @@ export const Home = () => {
           <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">
             Welcome to CodeLadder
           </h1>
-          <p className="text-xl text-gray-600 mb-12">
-            Your journey to mastering coding challenges starts here
+          <p className="text-xl text-gray-600 mb-6">
+            This project is a prototype of what I call the <strong>Dynamic Ladder</strong>.
+          </p>
+          <p className="text-md text-gray-700 mb-4">
+            Ever wanted to share a list of coding questions with friends or collaborate on building a problem ladder? 
+            While tools like Google Sheets or Docs can be used, they often feel clunky and repetitive.
+          </p>
+          <p className="text-md text-gray-700 mb-4">
+            <strong>CodeLadder</strong> makes collaboration easy—track questions, avoid duplicates, and enjoy a much better UI experience. 
+            Whether you're studying solo or with a team, this tool helps you organize, share, and solve more efficiently.
+          </p>
+          <p className="text-md text-gray-700 mb-6">
+            For any bugs, issues, or suggestions, feel free to reach out at <a className="text-blue-600 underline" href="mailto:methodactorme@gmail.com">methodactorme@gmail.com</a>.
           </p>
         </div>
 
