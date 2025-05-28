@@ -50,29 +50,7 @@ export const Home = () => {
           </div>
         </div>
 
-        <div className="mt-12 bg-white rounded-2xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-blue-800 mb-6 text-center">
-            Why Choose CodeLadder?
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="text-center">
-              <div className="text-4xl mb-4">📚</div>
-              <h3 className="font-bold text-lg mb-2">Structured Learning</h3>
-              <p className="text-gray-600">Progress through carefully curated problem sets</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl mb-4">🎯</div>
-              <h3 className="font-bold text-lg mb-2">Track Progress</h3>
-              <p className="text-gray-600">Monitor your improvement over time</p>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl mb-4">👥</div>
-              <h3 className="font-bold text-lg mb-2">Community</h3>
-              <p className="text-gray-600">Learn and grow with fellow coders</p>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
   );
 }
