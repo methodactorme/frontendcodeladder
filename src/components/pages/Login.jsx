@@ -2,21 +2,18 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-// AuthForm handles both Login and Signup in a single sleek component
 const AuthForm = ({ setUser, mode = "login" }) => {
-  const [formMode, setFormMode] = useState(mode); // "login" or "signup"
+  const [formMode, setFormMode] = useState(mode);
   const [formData, setFormData] = useState({
     username: '',
     password: '',
     email: '',
     phone: ''
   });
-
   const [message, setMessage] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  // Handle form input changes
   const handleChange = (e) => {
     setFormData(prev => ({
       ...prev,
@@ -24,14 +21,12 @@ const AuthForm = ({ setUser, mode = "login" }) => {
     }));
   };
 
-  // Handle login/registration form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
     setSuccess('');
 
     if (formMode === 'signup') {
-      // Signup logic
       try {
         const res = await axios.post('https://backendcodeladder-2.onrender.com/authen/signup', {
           username: formData.username,
@@ -48,7 +43,6 @@ const AuthForm = ({ setUser, mode = "login" }) => {
         setMessage(err.response?.data?.error || "Something went wrong");
       }
     } else {
-      // Login logic
       try {
         const response = await axios.post(
           'https://backendcodeladder-2.onrender.com/authen/login',
@@ -73,7 +67,6 @@ const AuthForm = ({ setUser, mode = "login" }) => {
     }
   };
 
-  // Switch between login and signup
   const handleModeSwitch = () => {
     setFormMode(formMode === 'login' ? 'signup' : 'login');
     setMessage('');
@@ -82,24 +75,35 @@ const AuthForm = ({ setUser, mode = "login" }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-300">
-      <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg border border-blue-100">
-        <h2 className="text-3xl font-extrabold text-blue-700 mb-6 tracking-tight text-center">
-          {formMode === 'login' ? 'Login' : 'Sign Up'}
-        </h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            name="username"
-            type="text"
-            placeholder={formMode === 'login' ? "Username or Email" : "Username"}
-            value={formData.username}
-            onChange={handleChange}
-            required
-            className="w-full mb-4 px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-400 focus:outline-none transition"
-            autoFocus
-          />
+    <div className="min-h-screen flex items-center justify-center bg-[url('https://images.pexels.com/photos/2653362/pexels-photo-2653362.jpeg')] bg-cover bg-center">
+      <div className="w-full max-w-md bg-white/90 backdrop-blur-sm p-8 rounded-2xl shadow-2xl border border-white/20">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-extrabold text-blue-900 mb-2">
+            {formMode === 'login' ? 'Welcome Back!' : 'Join Us'}
+          </h2>
+          <p className="text-gray-600">
+            {formMode === 'login' 
+              ? 'Sign in to continue your journey' 
+              : 'Create an account to get started'}
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <input
+              name="username"
+              type="text"
+              placeholder={formMode === 'login' ? "Username or Email" : "Username"}
+              value={formData.username}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 rounded-lg bg-white/50 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+              autoFocus
+            />
+          </div>
+
           {formMode === 'signup' && (
-            <>
+            <div>
               <input
                 name="email"
                 type="email"
@@ -107,58 +111,62 @@ const AuthForm = ({ setUser, mode = "login" }) => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full mb-4 px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-400 focus:outline-none transition"
+                className="w-full px-4 py-3 rounded-lg bg-white/50 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
               />
-            </>
+            </div>
           )}
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            className="w-full mb-4 px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-400 focus:outline-none transition"
-          />
-          {formMode === 'signup' && (
+
+          <div>
             <input
-              name="phone"
-              type="tel"
-              placeholder="Phone"
-              value={formData.phone}
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={formData.password}
               onChange={handleChange}
               required
-              className="w-full mb-4 px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-400 focus:outline-none transition"
+              className="w-full px-4 py-3 rounded-lg bg-white/50 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
             />
+          </div>
+
+          {formMode === 'signup' && (
+            <div>
+              <input
+                name="phone"
+                type="tel"
+                placeholder="Phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-3 rounded-lg bg-white/50 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition"
+              />
+            </div>
           )}
 
           <button
             type="submit"
-            className="w-full py-3 mt-2 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold text-lg shadow hover:from-blue-600 hover:to-blue-900 transition"
+            className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-800 text-white font-bold text-lg shadow-lg hover:from-blue-700 hover:to-blue-900 transition transform hover:scale-105"
           >
-            {formMode === 'login' ? 'Login' : 'Sign Up'}
+            {formMode === 'login' ? 'Sign In' : 'Create Account'}
           </button>
         </form>
 
         {(message || success) && (
-          <div className="mt-5 text-center text-lg font-medium">
+          <div className="mt-4 text-center text-sm font-medium">
             {message && <p className="text-red-600">{message}</p>}
             {success && <p className="text-green-600">{success}</p>}
           </div>
         )}
 
-        <div className="mt-8 text-center">
-          <span className="text-gray-600">
-            {formMode === 'login'
-              ? "Don't have an account?"
-              : "Already have an account?"}
-          </span>
-          <button
-            onClick={handleModeSwitch}
-            className="ml-2 font-semibold text-blue-700 hover:underline focus:outline-none"
-          >
-            {formMode === 'login' ? 'Sign Up' : 'Login'}
-          </button>
+        <div className="mt-6 text-center">
+          <p className="text-gray-600">
+            {formMode === 'login' ? "Don't have an account?" : "Already have an account?"}
+            <button
+              onClick={handleModeSwitch}
+              className="ml-2 font-semibold text-blue-700 hover:text-blue-900 hover:underline focus:outline-none"
+            >
+              {formMode === 'login' ? 'Sign Up' : 'Sign In'}
+            </button>
+          </p>
         </div>
       </div>
     </div>

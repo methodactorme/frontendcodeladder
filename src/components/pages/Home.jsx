@@ -1,8 +1,69 @@
-import React from 'react'
+import React from 'react';
 
 export const Home = () => {
   return (
-    <div>Home</div>
-  )
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-blue-900 mb-6">
+            Welcome to CodeLadder
+          </h1>
+          <p className="text-xl text-gray-600 mb-12">
+            Your journey to mastering coding challenges starts here
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white rounded-2xl shadow-lg p-8 transform hover:scale-105 transition-transform duration-300">
+            <h2 className="text-2xl font-bold text-blue-800 mb-4">Practice Problems</h2>
+            <p className="text-gray-600 mb-4">
+              Access a curated collection of coding problems to enhance your skills
+            </p>
+            <img
+              src="https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg"
+              alt="Coding practice"
+              className="w-full h-48 object-cover rounded-lg mb-4"
+            />
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg p-8 transform hover:scale-105 transition-transform duration-300">
+            <h2 className="text-2xl font-bold text-blue-800 mb-4">Track Progress</h2>
+            <p className="text-gray-600 mb-4">
+              Monitor your progress and see how far you've come
+            </p>
+            <img
+              src="https://images.pexels.com/photos/7376/startup-photos.jpg"
+              alt="Progress tracking"
+              className="w-full h-48 object-cover rounded-lg mb-4"
+            />
+          </div>
+        </div>
+
+        <div className="mt-12 bg-white rounded-2xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-blue-800 mb-6 text-center">
+            Why Choose CodeLadder?
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="text-center">
+              <div className="text-4xl mb-4">📚</div>
+              <h3 className="font-bold text-lg mb-2">Structured Learning</h3>
+              <p className="text-gray-600">Progress through carefully curated problem sets</p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-4">🎯</div>
+              <h3 className="font-bold text-lg mb-2">Track Progress</h3>
+              <p className="text-gray-600">Monitor your improvement over time</p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl mb-4">👥</div>
+              <h3 className="font-bold text-lg mb-2">Community</h3>
+              <p className="text-gray-600">Learn and grow with fellow coders</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
+
 export default Home;
