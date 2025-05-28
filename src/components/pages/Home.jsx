@@ -19,14 +19,29 @@ export const Home = () => {
             <strong>CodeLadder</strong> makes collaboration easy—track questions, avoid duplicates, and enjoy a much better UI experience. 
             Whether you're studying solo or with a team, this tool helps you organize, share, and solve more efficiently.
           </p>
-          <p className="text-md text-gray-700 mb-6">
-            For any bugs, issues, or suggestions, feel free to reach out at <a className="text-blue-600 underline" href="mailto:methodactorme@gmail.com">methodactorme@gmail.com</a>.
+          <p className="text-md text-gray-700 mb-4">
+            ⚠️ Please note: Some operations might take a couple of seconds to respond. We recommend waiting 1–2 seconds before attempting another update.
           </p>
+          <p className="text-md text-gray-700 mb-4">
+            🔁 If refreshing the page doesn't work, it's likely due to a known render hosting issue. To continue using the site, please return to the homepage at{' '}
+            <a
+              className="text-blue-600 underline"
+              href="https://frontendcodeladder.onrender.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              https://frontendcodeladder.onrender.com/
+            </a>.
+          </p>
+          <p className="text-md text-gray-700 mb-6">
+            For any bugs, issues, or suggestions, feel free to reach out at{' '}
+            <a className="text-blue-600 underline" href="mailto:methodactorme@gmail.com">
+              methodactorme@gmail.com
+            </a>.
+          </p>
+          <p className="text-xl font-semibold text-blue-800 mt-8"> Happy Coding!</p>
         </div>
-
-        
-
-        </div>
+      </div>
     </div>
   );
 }
