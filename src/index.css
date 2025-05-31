@@ -1,3 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --animation-duration: 0.3s;
+  }
+
+  body {
+    @apply transition-colors duration-300;
+  }
+}
+
+.slide-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.slide-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--animation-duration), transform var(--animation-duration);
+}
+
+.hover-scale {
+  @apply transition-transform duration-300 hover:scale-105;
+}
+
+.btn-gradient {
+  @apply transition-all duration-300 transform hover:scale-105 focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-primary {
+  @apply btn-gradient bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white;
+}
+
+.btn-secondary {
+  @apply btn-gradient bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white;
+}
+
+.btn-danger {
+  @apply btn-gradient bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white;
+}
