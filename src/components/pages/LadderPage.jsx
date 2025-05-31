@@ -16,6 +16,10 @@ const LadderPage = () => {
   const [removeSearchQuery, setRemoveSearchQuery] = useState('');
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showCollabModal, setShowCollabModal] = useState(false);
+  const [collabSearchQuery, setCollabSearchQuery] = useState('');
+  const [newCollaborator, setNewCollaborator] = useState('');
+  const [collabMessage, setCollabMessage] = useState('');
   const username = localStorage.getItem('username');
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
@@ -149,6 +153,41 @@ const LadderPage = () => {
     }
   };
 
+  const handleAddCollaborator = async () => {
+    if (!newCollaborator.trim()) return;
+    try {
+      await axios.post('https://backendcodeladder-2.onrender.com/collabtable', {
+        source_table_id: Number(tableId),
+        new_user_id: newCollaborator.trim(),
+      }, {
+        headers: { Authorization: `Bearer ${token}`, 'x-username': username }
+      });
+      setCollabMessage(`✅ ${newCollaborator} added successfully!`);
+      setNewCollaborator('');
+      const ladderRes = await axios.get(`https://backendcodeladder-2.onrender.com/ladder/${tableId}`, {
+        headers: { Authorization: `Bearer ${token}`, 'x-username': username }
+      });
+      setLadder(ladderRes.data);
+    } catch (err) {
+      setCollabMessage(`❌ ${err.response?.data?.error || 'Failed to add collaborator'}`);
+    }
+  };
+
+  const handleRemoveCollaborator = async (userToRemove) => {
+    try {
+      const response = await axios.post('https://backendcodeladder-2.onrender.com/removecollab', {
+        source_table_id: ladder.table_id,
+        user_to_remove: userToRemove
+      }, {
+        headers: { Authorization: `Bearer ${token}`, 'x-username': username }
+      });
+      setLadder(prev => ({ ...prev, user: response.data.users }));
+      setCollabMessage(`✅ Removed ${userToRemove} successfully`);
+    } catch (err) {
+      setCollabMessage(`❌ ${err.response?.data?.error || 'Failed to remove collaborator'}`);
+    }
+  };
+
   const filteredQuestions = allQuestions
     .filter(q => !ladder?.questions.includes(q.question_id))
     .filter(q => {
@@ -206,9 +245,18 @@ const LadderPage = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-8">
-      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-        {ladder?.table_title || `Ladder ${tableId}`}
-      </h1>
+      <div className="flex items-center justify-between mb-6">
+        <button
+          onClick={() => navigate('/ladders')}
+          className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+        >
+          ← Back to Ladders
+        </button>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+          {ladder?.table_title || `Ladder ${tableId}`}
+        </h1>
+        <div className="w-[72px]"></div>
+      </div>
 
       {error && (
         <div className="mb-6 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm">
@@ -244,6 +292,12 @@ const LadderPage = () => {
           disabled={questions.length === 0}
         >
           Remove Questions
+        </button>
+        <button
+          onClick={() => setShowCollabModal(true)}
+          className="btn-accent px-4 py-2 rounded text-sm"
+        >
+          Manage Collaborators
         </button>
       </div>
 
@@ -429,6 +483,79 @@ const LadderPage = () => {
                 className="btn-secondary px-4 py-2 rounded text-sm"
               >
                 Remove Selected ({selectedToRemove.length})
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Collaborators Modal */}
+      {showCollabModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">
+              Manage Collaborators
+            </h3>
+            
+            <div className="mb-6">
+              <h4 className="font-medium mb-2 text-gray-700 dark:text-gray-300">Current Collaborators</h4>
+              <div className="space-y-2">
+                {ladder?.user?.map((user, idx) => (
+                  <div key={user} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700/50 rounded">
+                    <div>
+                      <span className="font-medium text-gray-900 dark:text-white">{user}</span>
+                      {idx === 0 && <span className="ml-2 text-blue-600 dark:text-blue-400">(Owner)</span>}
+                      {user === username && <span className="ml-2 text-green-600 dark:text-green-400">(You)</span>}
+                    </div>
+                    {ladder.user[0] === username && idx !== 0 && (
+                      <button
+                        onClick={() => handleRemoveCollaborator(user)}
+                        className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {ladder?.user[0] === username && (
+              <div className="border-t dark:border-gray-700 pt-4">
+                <h4 className="font-medium mb-2 text-gray-700 dark:text-gray-300">Add New Collaborator</h4>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={newCollaborator}
+                    onChange={(e) => setNewCollaborator(e.target.value)}
+                    placeholder="Enter username"
+                    className="flex-1 p-2 border rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  />
+                  <button
+                    onClick={handleAddCollaborator}
+                    className="btn-primary px-4 py-2 rounded text-sm"
+                  >
+                    Add
+                  </button>
+                </div>
+                {collabMessage && (
+                  <p className={`mt-2 text-sm ${collabMessage.startsWith('✅') ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                    {collabMessage}
+                  </p>
+                )}
+              </div>
+            )}
+
+            <div className="flex justify-end mt-6">
+              <button
+                onClick={() => {
+                  setShowCollabModal(false);
+                  setCollabMessage('');
+                  setNewCollaborator('');
+                }}
+                className="btn-secondary px-4 py-2 rounded text-sm"
+              >
+                Close
               </button>
             </div>
           </div>
